@@ -20,7 +20,7 @@ Reminder:
 1. Check all the version
 2. Check all the open ports
 
-![[Pasted image 20260226134317.png]]
+![Nmap Scan Results]("ss/Pasted image 20260226134317.png)
 
 Hmmm I got a lot of information here, lets do it step by step.
 
@@ -100,7 +100,7 @@ admin::admin
 
 ![[Pasted image 20260226142118.png]]
 
-Lets see what kind of information, i cna gain from here
+Lets see what kind of information, i can gain from here
 
 ![[Pasted image 20260226142154.png]]
 
