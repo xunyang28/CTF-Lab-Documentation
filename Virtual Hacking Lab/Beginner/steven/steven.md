@@ -20,7 +20,7 @@ Reminder:
 1. Check all the version
 2. Check all the open ports
 
-![Nmap Scan Results]("ss/Pasted image 20260226134317.png")
+![Nmap Scan Results](ss/nmap_scan.png)
 
 Hmmm I got a lot of information here, lets do it step by step.
 
