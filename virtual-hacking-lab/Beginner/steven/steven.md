@@ -44,7 +44,7 @@ When reviewing scan results:
     1. Check all detected service versions
     2.Investigate every open port
 
-![Nmap Scan Results](ss/nmap_scan.png)
+![Nmap Scan Results](.ss/nmap_scan.png)
 
 ## FTP
 Attempt to access the FTP services.
@@ -56,14 +56,14 @@ anonymous::anonymous
 "Login failed"
 ```
 
-![FTP anonymous login failed Results](ss/anonymous_login_failed.png)
+![FTP anonymous login failed Results](.ss/anonymous_login_failed.png)
 
 No anonymous login allowed
 
 ### FTP version Checked
 Lets check version, Wing FTP Server
 
-![Searchsploit Results](ss/3.png)
+![Searchsploit Results](.ss/3.png)
 
 However, the exact version is not revealed during initial enumeration.
 
@@ -77,7 +77,7 @@ Since the scan shows SMB ports open, enumerate SMB shares.
 smbclient -L //$ip
 ```
 
-![SMB Results](ss/4.png)
+![SMB Results](.ss/4.png)
 
 Result: **No accessible shares were discovered.**
 
@@ -89,11 +89,11 @@ enum4linux -a $ip
 
 ## HTTP Port Open
 
-![http scan Results](ss/5.png)
+![http scan Results](.ss/5.png)
 
 from nmap scan, i could see it is related to Wing FTP Server
 
-![http web Results](ss/6.png)
+![http web Results](.ss/6.png)
 
 Initial inspection of the web page suggests it is associated with Wing FTP Server.
 
@@ -107,9 +107,9 @@ gobuster dir -u http://$ip -w /usr/share/wordlists/dirb/common.txt -o gobuster/d
 dirsearch -u $ip
 ```
 
-![ GoBuster Results](ss/7.png)
+![ GoBuster Results](.ss/7.png)
 
-![Dirsearch Results](ss/8.png)
+![Dirsearch Results](.ss/8.png)
 
 Results showed very limited directories and did not reveal significant information.
 
@@ -119,7 +119,7 @@ A deeper investigation of other ports was required.
 
 Accessing the service reveals an admin login page.
 
-![Web Application Results](ss/9.png)
+![Web Application Results](.ss/9.png)
 
 ```bash
 # lets try week password login attempt
@@ -132,11 +132,11 @@ admin::admin
 
 Successful login grants access to the Wing FTP Server admin interface.
 
-![Success Results](ss/10.png)
+![Success Results](.ss/10.png)
 
 Lets see what kind of information, i can gain from here
 
-![System Results](ss/10.png)
+![System Results](.ss/10.png)
 
 Inside the admin panel, the version of the software is identified as:
 
@@ -150,7 +150,7 @@ Search for known vulnerabilities.
 searchsploit wing ftp server 4.3.8
 ```
 
-![Results](ss/11.png)
+![Results](.ss/11.png)
 
 An exploit was discovered.
 
@@ -176,7 +176,7 @@ Start a listener on the attacking machine:
 sudo nc -lnvp 4444
 ```
 
-![ Results](ss/12.png)
+![ Results](.ss/12.png)
 
 Verify current privileges.
 
@@ -184,7 +184,7 @@ Verify current privileges.
 whoami
 ```
 
-![ Results](ss/13.png)
+![ Results](.ss/13.png)
 
 ## Key.txt
 
