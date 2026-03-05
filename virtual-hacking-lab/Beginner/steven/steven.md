@@ -56,7 +56,7 @@ anonymous::anonymous
 "Login failed"
 ```
 
-![FTP anonymous login failed Results](.ss/anonymous_login_failed.png)
+![FTP anonymous login failed Results](.ss/anonymous_login_fail.png)
 
 No anonymous login allowed
 
