@@ -109,7 +109,7 @@ cd /data/root
 cat key.txt
 ```
 
-![Results](4.png)
+![Results](ss/4.png)
 
 # Remediation
 
