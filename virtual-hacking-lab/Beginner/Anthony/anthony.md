@@ -10,6 +10,7 @@
 | Tools Used | Nmap, Gobuster, Searchsploit |
 
 ## Attack Path
+
 1. Reconnaissance   
 2. Port Scanning (Nmap)  
 3. Web Enumeration  

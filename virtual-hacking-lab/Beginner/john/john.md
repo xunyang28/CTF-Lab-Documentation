@@ -54,7 +54,7 @@ No HTTP services were discovered, suggesting that the primary attack surface is 
 Since SMB was exposed, further enumeration was conducted.
 
 ```bash
-smbclient -L 
+smbclient -L //$ip
 ```
 
 ![RESULTS](ss/1.png)
