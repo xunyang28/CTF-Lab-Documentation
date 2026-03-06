@@ -1,19 +1,12 @@
 # Anthony - Virtual Hacking Lab
 
 | Info | Details |
-
 |-----|--------|
-
 | Platform | Virtual Hacking Lab |
-
 | Difficulty | Beginner |
-
 | Target IP | 10.11.1.113 |
-
 | OS | Windows |
-
 | Vulnerability | SMB (Eternal Blues) & GitStack Web 2.3.10 |
-
 | Tools Used | Nmap, Gobuster, Searchsploit |
 
 ## Attack Path
