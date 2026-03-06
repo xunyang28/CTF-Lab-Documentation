@@ -61,11 +61,12 @@ enum4linux -a $ip
 "No useful information here"
 ```
 # Web Enumeration
+
 ![Results](ss/1.png)
 
 seems like a 404 page here. But also showed some directories here
 
-Lets try directory search
+Directory brute forcing with Gobuster and dirsearch.
 
 ``` bash
 # Gobuster
