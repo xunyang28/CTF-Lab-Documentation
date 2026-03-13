@@ -61,6 +61,7 @@ smbclient -L \\$ip
 enum4linux -a $ip
 "No useful information here"
 ```
+
 # Web Enumeration
 
 ![Results](ss/1.png)
