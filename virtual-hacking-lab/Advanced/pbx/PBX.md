@@ -68,6 +68,7 @@ enum4linux -a $ip
 ```
 
 Results: Discovered a potential user: **pbx**
+
 ## Web Enumeration
 
 Web App page: Accessing the HTTP service revealed a **FreePBX** web interface.
