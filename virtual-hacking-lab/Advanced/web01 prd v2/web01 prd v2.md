@@ -87,10 +87,12 @@ dirsearch -u $ip
 ```
 
 Gobuster:
+
 ![Results](ss/4.png)
 
 
 Dirsearch:
+
 ![Results](ss/5.png)
 
 Results: directory brute forcing discovered /wp-admin. Which confirmed the application is wordpress
